@@ -37,7 +37,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # -------------------- LOAD DATA --------------------
-df = pd.read_excel("updatedata.xlsx")
+df = pd.read_excel("datalayout.xlsx")
 df.columns = df.columns.str.strip()
 df['หลังต่อซอย'] = df['จำนวนหลัง'] / df['จำนวนซอย'].replace(0, 1)
 df['%บ้านเดี่ยว'] = df['บ้านเดี่ยว'] / df['จำนวนหลัง'].replace(0, 1)
@@ -167,6 +167,5 @@ st.markdown("### 📈 ความแม่นยำของโมเดล (Tr
 st.write(f"**MAE (Mean Absolute Error):** {mae:.4f}")
 st.write(f"**R² Score:** {r2:.4f}")
 
-st.caption("Developed by mmethaa | Smart Layout AI 🚀")
 st.markdown("---")
 st.caption("Developed by mmethaa | Smart Layout AI 🚀")
