@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.multioutput import MultiOutputRegressor
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_absolute_error, r2_score  # ✅ ← เพิ่มบรรทัดนี้
 
 # -------------------- CONFIG --------------------
 st.set_page_config(page_title="Smart Layout AI", page_icon="🏗️", layout="centered")
@@ -78,8 +79,8 @@ grouped_ratio_dict = grouped_ratio.to_dict(orient="index")
 # -------------------- RULE-BASED ADJUSTMENT --------------------
 def adjust_by_grade_policy(grade, ratios):
     if grade in ['PRIMO', 'BELLA', 'WATTANALAI']:
-        ratios[2] = min(ratios[2], 0.2)  # บ้านเดี่ยวไม่เกิน 20%
-        remain = 1 - ratios[2] - ratios[3]  # เผื่อไว้ให้บ้านแฝดและทาวน์โฮม
+        ratios[2] = min(ratios[2], 0.2)
+        remain = 1 - ratios[2] - ratios[3]
         ratios[0] = remain * 0.65
         ratios[1] = remain * 0.35
     return ratios
@@ -152,20 +153,20 @@ if submitted:
 
     st.markdown("### 🏡 แยกตามประเภศบ้าน")
     st.markdown(f"""
-    - ทาวน์โฮม: **{ทาวโฮม:,.0f}** หลัง
-    - บ้านแฝด: **{บ้านแฝด:,.0f}** หลัง
-    - บ้านเดี่ยว: **{บ้านเดี่ยว:,.0f}** หลัง
+    - ทาวน์โฮม: **{ทาวโฮม:,.0f}** หลัง  
+    - บ้านแฝด: **{บ้านแฝด:,.0f}** หลัง  
+    - บ้านเดี่ยว: **{บ้านเดี่ยว:,.0f}** หลัง  
     - อาคารพาณิชย์: **{อาคารพาณิชย์:,.0f}** หลัง
     """)
-# หลัง train model เสร็จ:
-y_pred = model.predict(X_train)
 
-mae = mean_absolute_error(y_train, y_pred)
-r2 = r2_score(y_train, y_pred)
+    # ความแม่นยำของโมเดล
+    y_pred = model.predict(X_train)
+    mae = mean_absolute_error(y_train, y_pred)
+    r2 = r2_score(y_train, y_pred)
 
-st.markdown("### 📈 ความแม่นยำของโมเดล (Train Set)")
-st.write(f"**MAE (Mean Absolute Error):** {mae:.4f}")
-st.write(f"**R² Score:** {r2:.4f}")
+    st.markdown("### 📈 ความแม่นยำของโมเดล (Train Set)")
+    st.write(f"**MAE (Mean Absolute Error):** {mae:.4f}")
+    st.write(f"**R² Score:** {r2:.4f}")
 
 st.markdown("---")
 st.caption("Developed by mmethaa | Smart Layout AI 🚀")
