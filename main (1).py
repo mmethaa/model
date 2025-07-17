@@ -157,6 +157,16 @@ if submitted:
     - บ้านเดี่ยว: **{บ้านเดี่ยว:,.0f}** หลัง
     - อาคารพาณิชย์: **{อาคารพาณิชย์:,.0f}** หลัง
     """)
+# หลัง train model เสร็จ:
+y_pred = model.predict(X_train)
 
+mae = mean_absolute_error(y_train, y_pred)
+r2 = r2_score(y_train, y_pred)
+
+st.markdown("### 📈 ความแม่นยำของโมเดล (Train Set)")
+st.write(f"**MAE (Mean Absolute Error):** {mae:.4f}")
+st.write(f"**R² Score:** {r2:.4f}")
+
+st.caption("Developed by mmethaa | Smart Layout AI 🚀")
 st.markdown("---")
 st.caption("Developed by mmethaa | Smart Layout AI 🚀")
