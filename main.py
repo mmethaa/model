@@ -37,7 +37,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # -------------------- LOAD DATA --------------------
-df = pd.read_excel("updatedata.xlsx")
+df = pd.read_excel("datalayout.xlsx")
 df.columns = df.columns.str.strip()
 df['หลังต่อซอย'] = df['จำนวนหลัง'] / df['จำนวนซอย'].replace(0, 1)
 df['%บ้านเดี่ยว'] = df['บ้านเดี่ยว'] / df['จำนวนหลัง'].replace(0, 1)
